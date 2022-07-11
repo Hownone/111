@@ -4,3 +4,73 @@ router-link 前端渲染
 name: router定义的名称
 
 eg: <router-link class="navbar-brand" :to="{name: 'home', params: {}}">  </router-link>
+
+值的传递：
+father -> son : props
+son ->  father ：events
+
+给组件传递属性：v-bind:user=""
+简写成 :user=""
+:user ,指的是value
+双引号里的是key
+可以自定义
+return那里返回key：value
+return {
+	key: value,
+}
+
+ setup() {
+        const user = reactive({
+            Username: "Hownone Ho",
+            LastName: "Ho",
+            FirstName: "Hownone",
+            Followers: 100,
+            is_followed: false,
+
+        });
+
+        return {
+            info : user, 
+        }
+    }
+
+
+在子组件里引用属性要定义一个props
+引用属性要用{{user.Username}}  {{}}表示取值
+
+动态计算computed() 
+里面传函数 computed(() => ...)
+
+ props: {
+        user: {
+            type: Object,
+            required: true,
+        },
+    },
+    setup(props) {
+        let FullName = computed(() => props.user.FirstName + ' ' + props.user.LastName);
+
+        return {
+            FullName
+        }
+
+    }
+
+事件(events)绑定：v-on:click="follow" follow是函数名
+
+ const follow = () => {
+            console.log("follow");
+        };
+
+子组件触发事件 ： context.emit('checkfollow');
+父组件响应 @checkfollow
+
+reactive里面必须是对象
+let里面不需要是对象
+
+<textarea v-modal="content" class="form-control" id="EditPost" rows="3"></textarea>
+v-modal作用 把content里的内容与textarea里的内容绑定起来
+
+
+
+
