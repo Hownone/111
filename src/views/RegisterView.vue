@@ -1,6 +1,6 @@
 <template>
   <ContentBase>
-    Friend List  
+    Register now! 
   </ContentBase>
 </template>
 
@@ -8,7 +8,7 @@
 import ContentBase from '@/components/ContentBase'
 
 export default {
-  name: 'UserList',
+  name: 'RegisterView',
   components: {
     ContentBase,
 

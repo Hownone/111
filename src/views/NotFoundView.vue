@@ -1,14 +1,14 @@
 <template>
   <ContentBase>
-    Friend List  
+    404 Not Found！
   </ContentBase>
 </template>
 
 <script>
-import ContentBase from '@/components/ContentBase'
+import ContentBase from '../components/ContentBase'
 
 export default {
-  name: 'UserList',
+  name: 'NotFoundView',
   components: {
     ContentBase,
 

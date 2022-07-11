@@ -1,0 +1,6 @@
+router-link 前端渲染
+特殊属性 :to (: 绑定属性) 
+{}内是对象的属性 " {name:}"
+name: router定义的名称
+
+eg: <router-link class="navbar-brand" :to="{name: 'home', params: {}}">  </router-link>

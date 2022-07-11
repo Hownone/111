@@ -1,14 +1,14 @@
 <template>
   <ContentBase>
-    Friend List  
+   Your Profile
   </ContentBase>
 </template>
 
 <script>
-import ContentBase from '@/components/ContentBase'
+import ContentBase from '@/components/ContentBase.vue'
 
 export default {
-  name: 'UserList',
+  name: 'UserProfile',
   components: {
     ContentBase,
 
