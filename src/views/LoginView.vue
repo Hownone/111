@@ -16,9 +16,7 @@
             <input v-model="password" type="password" id="login-password" placeholder="Input your password">
           </div>
           <div class="error-message">{{ error_message }}</div>
-          <div class="btn login-btn">
-            <span>Sign in</span>
-          </div>
+          <button type="submit" class="btn login-btn">Sign in</button>
         </form>
         <div class="change-box login-change">
           <div class="change-btn toSign">
