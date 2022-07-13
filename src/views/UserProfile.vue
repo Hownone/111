@@ -19,6 +19,7 @@ import ContentBase from '@/components/ContentBase.vue'
 import UserProfileInfo from '@/components/UserProfileinfo.vue'
 import UserProfilePosts from '@/components/UserProfilePosts.vue'
 import { reactive } from 'vue'
+import { useRoute } from 'vue-router'
 import UserProfileWrite from '../components/UserProfileWrite.vue'
 
 
@@ -31,6 +32,9 @@ export default {
         UserProfileWrite
     },
     setup() {
+        const route = useRoute();
+        const userID = route.params.ID;
+        console.log(userID);
         const user = reactive({
             Username: "Hownone Ho",
             LastName: "Ho",
@@ -89,6 +93,7 @@ export default {
             unfollow,
             posts,
             postApost,
+
         }
 
 

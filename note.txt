@@ -57,6 +57,7 @@ return {
     }
 
 事件(events)绑定：v-on:click="follow" follow是函数名
+<button @click="follow" v-if="!user.is_followed" type="button" class="btn btn-primary btn-sm">Follow</button>
 
  const follow = () => {
             console.log("follow");
@@ -70,6 +71,11 @@ let里面不需要是对象
 
 <textarea v-modal="content" class="form-control" id="EditPost" rows="3"></textarea>
 v-modal作用 把content里的内容与textarea里的内容绑定起来
+
+若要修改一个resp变量的值要对他的.value赋值
+
+params后面可以跟我们想获取的变量名称  console.log(route.params.userID);
+
 
 
 
