@@ -1,6 +1,6 @@
 <template>
   <ContentBase>
-    <div class="card" v-for="user in users" :key="user.id">
+    <div class="card" v-for="user in users" :key="user.id" @click="OpenUserProfile(user.id)">
       <div class="card-body">
         <div class="row">
           <div class="col-1">
@@ -22,8 +22,10 @@
 
 <script>
 import ContentBase from '@/components/ContentBase'
+import router from '@/router';
 import $ from 'jquery';
 import { ref } from 'vue';
+import { useStore } from 'vuex';
 
 export default {
   name: 'UserList',
@@ -32,6 +34,7 @@ export default {
   },
   setup() {
     let users = ref([]);
+    const store = useStore();
 
     $.ajax({
       //url: 'https://api.bilibili.com/x/relation/followers?vmid=2884629&pn=1&ps=20&order=desc&jsonp=jsonp',
@@ -42,8 +45,26 @@ export default {
       }
     });
 
+    const OpenUserProfile = userID => {
+      if (store.state.user.is_login) {
+        router.push({
+          name: "userprofile",
+          params: {
+            ID: userID,
+          }
+        });
+      }
+      else {
+        router.push({
+          name: "login"
+        });
+      }
+    }
+
+
     return {
       users,
+      OpenUserProfile,
     }
 
   }

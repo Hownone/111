@@ -14,10 +14,7 @@
           <li class="nav-item">
             <router-link class="nav-link" :to="{ name: 'userlist' }">Friends</router-link>
           </li>
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{ name: 'userprofile', params: { ID:2 } }">Activities
-            </router-link>
-          </li>
+          
         </ul>
 
         <ul class="navbar-nav" v-if="!$store.state.user.is_login">

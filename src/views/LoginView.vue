@@ -19,7 +19,7 @@
           <button type="submit" class="btn login-btn">Sign in</button>
         </form>
         <div class="change-box login-change">
-          <div class="change-btn toSign">
+          <div class="change-btn toSign" @click="GotoRegister">
             <span>Register</span>
           </div>
         </div>
@@ -67,11 +67,19 @@ export default {
       });
     };
 
+    const GotoRegister =() => {
+        router.push({
+          name: "register",
+        });
+    }
+
+
     return {
       username,
       password,
       error_message,
       login,
+      GotoRegister,
     }
   }
 
