@@ -76,6 +76,8 @@ v-modal作用 把content里的内容与textarea里的内容绑定起来
 
 params后面可以跟我们想获取的变量名称  console.log(route.params.userID);
 
+若想在外面调用actions里的某一个名字的话要用useStroe()里的dispatch("action里的函数名",其他参数)
+
 
 
 

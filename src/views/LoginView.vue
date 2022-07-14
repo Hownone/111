@@ -8,14 +8,14 @@
           <li class="green-btn"></li>
         </div>
         <div class="title">Login</div>
-        <form @submit="login">
+        <form @submit.prevent="login">
           <div class="input">
             <input v-model="username" type="text" id="login-user" placeholder="Input your username">
           </div>
           <div class="input">
             <input v-model="password" type="password" id="login-password" placeholder="Input your password">
+            <div class="error-message">{{ error_message }}</div>
           </div>
-          <div class="error-message">{{ error_message }}</div>
           <button type="submit" class="btn login-btn">Sign in</button>
         </form>
         <div class="change-box login-change">
@@ -37,6 +37,8 @@
 //import LoginContent from '@/components/LoginContent.vue'
 
 import { ref } from 'vue';
+import { useStore } from 'vuex';
+import router from '@/router';
 
 
 export default {
@@ -46,13 +48,24 @@ export default {
   },
 
   setup() {
+    const store = useStore();
     let username = ref('');
     let password = ref('');
     let error_message = ref('');
 
     const login = () => {
-      console.log(username.value, password.value);
-    }
+      error_message.value = "";
+      store.dispatch("login", {
+        username: username.value,
+        password: password.value,
+        success() {
+          router.push({ name: 'userlist' });
+        },
+        error() {
+          error_message.value = "Password or Username error!";
+        }
+      });
+    };
 
     return {
       username,

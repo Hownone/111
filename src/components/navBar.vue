@@ -15,16 +15,27 @@
             <router-link class="nav-link" :to="{ name: 'userlist' }">Friends</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" :to="{ name: 'userprofile',params:{ID: 2} }">Activities</router-link>
+            <router-link class="nav-link" :to="{ name: 'userprofile', params: { ID:2 } }">Activities
+            </router-link>
           </li>
         </ul>
 
-        <ul class="navbar-nav">
+        <ul class="navbar-nav" v-if="!$store.state.user.is_login">
           <li class="nav-item">
             <router-link class="nav-link" :to="{ name: 'login' }">Sign in</router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" :to="{ name: 'register' }">Sign up</router-link>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav" v-else>
+          <li class="nav-item">
+            <router-link class="nav-link" :to="{ name: 'userprofile', params: {ID: $store.state.user.id } }">
+              {{ $store.state.user.username }}</router-link>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" @click="logout" style="cursor: pointer">Sign out</a>
           </li>
         </ul>
 
@@ -35,8 +46,20 @@
 </template>
 
 <script>
+import { useStore } from 'vuex';
+
 export default {
   name: "navBar",
+  setup() {
+    const store = useStore();
+    const logout = () => {
+      store.dispatch("logout");
+    };
+
+    return {
+      logout,
+    }
+  }
 }
 </script>
 

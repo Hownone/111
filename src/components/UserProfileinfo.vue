@@ -44,8 +44,6 @@ export default {
             context.emit('unfollow');
         }
 
-        
-
         return {
             FullName,
             follow,
