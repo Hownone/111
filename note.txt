@@ -78,7 +78,16 @@ params后面可以跟我们想获取的变量名称  console.log(route.params.us
 
 若想在外面调用actions里的某一个名字的话要用useStroe()里的dispatch("action里的函数名",其他参数)
 
+headers: 验证
+headers: {
+                "Authorization": "Bearer " + store.state.user.access,
+            }
 
+$.ajax({}) type类型如下：
+增： 创建 post
+删： 删除 delete
+改： 修改 put
+查： 查找 get
 
 
 

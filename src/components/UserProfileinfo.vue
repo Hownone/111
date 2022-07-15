@@ -3,10 +3,10 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-5">
-                    <img src="../assets/1.jpeg" class="img-fluid" alt="...">
+                    <img :src="user.photo" class="img-fluid" alt="...">
                 </div>
                 <div class="col-9">
-                    <div class="Username">{{ FullName }}</div>
+                    <div class="Username">{{ user.Username }}</div>
                     <div class="fans">followers:{{ user.Followers }}</div>
                     <button @click="follow" v-if="!user.is_followed" type="button" class="btn btn-primary btn-sm">Follow</button>
                     <button @click="unfollow" v-if="user.is_followed" type="button" class="btn btn-primary btn-sm">Unfollow</button>
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+//import { computed } from 'vue'
 
 export default {
     name: "UserProfileInfo",
@@ -32,7 +32,7 @@ export default {
         },
     },
     setup(props,context) {
-        let FullName = computed(() => props.user.FirstName + ' ' + props.user.LastName);
+        //let FullName = computed(() => props.user.FirstName + ' ' + props.user.LastName);
 
         const follow = () => {
             
@@ -45,7 +45,7 @@ export default {
         }
 
         return {
-            FullName,
+           // FullName,
             follow,
             unfollow,
         }

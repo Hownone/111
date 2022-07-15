@@ -3,11 +3,11 @@
         <div class="row">
             <div class="col-3">
                 <UserProfileInfo @checkfollow="follow" @unfollow="unfollow" :user="info" />
-                <UserProfileWrite @postApost="postApost" />
+                <UserProfileWrite v-if="isMe" @postApost="postApost" />
 
             </div>
             <div class="col-9">
-                <UserProfilePosts :posts="posts">
+                <UserProfilePosts :user="info" :posts="posts" @deletepost="DeletePost" >
                 </UserProfilePosts>
             </div>
         </div>
@@ -20,7 +20,10 @@ import UserProfileInfo from '@/components/UserProfileinfo.vue'
 import UserProfilePosts from '@/components/UserProfilePosts.vue'
 import { reactive } from 'vue'
 import { useRoute } from 'vue-router'
+import { useStore } from 'vuex'
 import UserProfileWrite from '../components/UserProfileWrite.vue'
+import $ from 'jquery'
+import { computed } from '@vue/reactivity'
 
 
 export default {
@@ -34,14 +37,52 @@ export default {
     setup() {
         const route = useRoute();
         const userID = route.params.ID;
-        console.log(userID);
+        const store = useStore();
+        const user = reactive({});
+        const posts = reactive({});
+
+        $.ajax({
+            url: "https://app165.acapp.acwing.com.cn/myspace/getinfo/",
+            type: "GET",
+            data: {
+                user_id: userID,
+
+            },
+            headers: {
+                "Authorization": "Bearer " + store.state.user.access,
+            },
+            success(resp) {
+                //console.log(resp);
+                user.id = resp.id;
+                user.Username = resp.username;
+                user.photo = resp.photo;
+                user.Followers = resp.followerCount;
+                user.is_followed = resp.is_followed;
+            }
+        });
+
+        $.ajax({
+            url: "https://app165.acapp.acwing.com.cn/myspace/post/",
+            type: "GET",
+            data: {
+                user_id: userID,
+            },
+            headers: {
+                "Authorization": "Bearer " + store.state.user.access,
+            },
+            success(resp) {
+                posts.count = resp.length;
+                console.log(resp);
+                posts.posts = resp;
+            }
+        });
+       /* console.log(userID);
         const user = reactive({
             Username: "Hownone Ho",
             LastName: "Ho",
             FirstName: "Hownone",
             Followers: 100,
             is_followed: true,
-
         });
 
         const posts = reactive({
@@ -63,7 +104,7 @@ export default {
             },
             ]
 
-        });
+        });*/
 
         const follow = () => {
             if (user.is_followed) return;
@@ -82,10 +123,18 @@ export default {
             posts.count++;
             posts.posts.unshift({
                 id: posts.count,
-                userID: 12345,
                 content: content,
             })
         }
+
+        const DeletePost = postID => {
+            posts.posts = posts.posts.filter(post => post.id !== postID);
+            posts.count = posts.posts.length;
+
+
+        }
+
+        const isMe = computed(() => userID == store.state.user.id)
 
         return {
             info: user,
@@ -93,7 +142,8 @@ export default {
             unfollow,
             posts,
             postApost,
-
+            isMe,
+            DeletePost,
         }
 
 
