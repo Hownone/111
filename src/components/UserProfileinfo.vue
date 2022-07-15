@@ -8,8 +8,10 @@
                 <div class="col-9">
                     <div class="Username">{{ user.Username }}</div>
                     <div class="fans">followers:{{ user.Followers }}</div>
-                    <button @click="follow" v-if="!user.is_followed" type="button" class="btn btn-primary btn-sm">Follow</button>
-                    <button @click="unfollow" v-if="user.is_followed" type="button" class="btn btn-primary btn-sm">Unfollow</button>
+                    <button @click="follow" v-if="!user.is_followed" type="button"
+                        class="btn btn-primary btn-sm">Follow</button>
+                    <button @click="unfollow" v-if="user.is_followed" type="button"
+                        class="btn btn-primary btn-sm">Unfollow</button>
 
                 </div>
 
@@ -22,6 +24,9 @@
 
 <script>
 //import { computed } from 'vue'
+import $ from 'jquery'
+import { useStore } from 'vuex';
+
 
 export default {
     name: "UserProfileInfo",
@@ -31,21 +36,48 @@ export default {
             required: true,
         },
     },
-    setup(props,context) {
+    setup(props, context) {
         //let FullName = computed(() => props.user.FirstName + ' ' + props.user.LastName);
-
+        const store = useStore();
         const follow = () => {
-            
-            context.emit('checkfollow');
+             $.ajax({
+                url: "https://app165.acapp.acwing.com.cn/myspace/follow/",
+                type: "POST",
+                data: {
+                    target_id: props.user.id,
+                },
+                headers: {
+                    "Authorization": "Bearer " + store.state.user.access,
+                },
+                success(resp) {
+                    if (resp.result === "success") {
+                        context.emit("checkfollow");
+                    }
+                }
+            });
         };
 
         const unfollow = () => {
-            
-            context.emit('unfollow');
-        }
+            $.ajax({
+                url: "https://app165.acapp.acwing.com.cn/myspace/follow/",
+                type: "POST",
+                data: {
+                    target_id: props.user.id,
+                },
+                headers: {
+                    "Authorization": "Bearer " + store.state.user.access,
+                },
+                success(resp) {
+                    if (resp.result === "success") {
+                        context.emit("unfollow");
+                    }
+                }
+            });
+           
+        };
 
         return {
-           // FullName,
+            // FullName,
             follow,
             unfollow,
         }

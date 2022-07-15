@@ -8,12 +8,15 @@
           <li class="green-btn"></li>
         </div>
         <div class="title">Sign</div>
-        <form>
+        <form @submit.prevent="sign">
           <div class="input">
             <input v-model="username" type="text" id="sign-user" placeholder="Have A Good Name?">
           </div>
           <div class="input">
             <input v-model="password" type="password" id="sign-password" placeholder="Keep Secret">
+          </div>
+          <div class="input">
+            <input v-model="password_confirm" type="password" id="password_confirm" placeholder="Confirm Your Password">
           </div>
           <button type="submit" class="btn sign-btn">Sign up</button>
         </form>
@@ -32,12 +35,10 @@
 
 <script>
 
-//import ContentBase from '@/components/ContentBase'
-//import LoginContent from '@/components/LoginContent.vue'
-
-//import { ref } from 'vue';
-//import { useStore } from 'vuex';
+import { ref } from 'vue';
+import { useStore } from 'vuex';
 import router from '@/router';
+import $ from "jquery"
 
 
 export default {
@@ -47,25 +48,45 @@ export default {
   },
 
   setup() {
-    /*const store = useStore();
+    const store = useStore();
     let username = ref('');
     let password = ref('');
     let error_message = ref('');
+    let password_confirm = ref('');
 
-    const login = () => {
+    const sign = () => {
       error_message.value = "";
-      store.dispatch("login", {
-        username: username.value,
-        password: password.value,
-        success() {
-          router.push({ name: 'userlist' });
+      $.ajax({
+        url: "https://app165.acapp.acwing.com.cn/myspace/user/",
+        type: "POST",
+        data: {
+          username: username.value,
+          password: password.value,
+          password_confirm: password_confirm.value,
         },
-        error() {
-          error_message.value = "Password or Username error!";
+        success(resp) {
+          if (resp.result === "success") {
+            store.dispatch("login", {
+              username: username.value,
+              password: password.value,
+              success() {
+                router.push({ name: 'userlist' });
+              },
+              error() {
+                error_message.value = "System Error";
+              }
+            });
+          }
+
+          //console.log(resp);
         }
+
       });
+
+      // console.log(store);
+      //console.log(username.value,password.value,password_confirm.value);
     };
-*/
+
     const GotoLogin = () => {
       router.push({
         name: "login",
@@ -74,10 +95,11 @@ export default {
 
 
     return {
-      // username,
-      // password,
-      //error_message,
-      //login,
+      username,
+      password,
+      password_confirm,
+      error_message,
+      sign,
       GotoLogin,
     }
   }
@@ -116,7 +138,7 @@ export default {
 
 .container {
   position: absolute;
-  height: 350px;
+  height: 430px;
   width: 600px;
   background-color: rgba(255, 255, 255, .9);
   left: 50%;
@@ -240,7 +262,7 @@ input {
 
 
 .sign-change {
-    background-color: rgba(17, 39, 59, 0.8);
+  background-color: rgba(17, 39, 59, 0.8);
 }
 
 
