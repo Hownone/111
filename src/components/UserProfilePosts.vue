@@ -5,7 +5,8 @@
                 <div class="card OnePost">
                     <div class="card-body">
                         {{ post.content }}
-                        <button @click="delete_a_post(post.id)" v-if="isMe" type="button"
+                        <button @click="delete_a_post(post.id)" v-if="isMe"
+                            type="button"
                             class="btn btn-danger btn-sm">Delete</button>
                     </div>
                 </div>
@@ -57,7 +58,6 @@ export default {
                 success(resp) {
                     if (resp.result == "success") {
                         context.emit("deletepost", postID);
-
                     }
                 }
             });

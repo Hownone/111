@@ -52,7 +52,7 @@ const ModuleUser = {
               url: "https://app165.acapp.acwing.com.cn/api/token/refresh/",
               type: "POST",
               data: {
-                refresh,
+                refresh, //key与value一样可以简写
               },
               success(resp) {
                 context.commit("updateAccess", resp.access);
@@ -65,7 +65,7 @@ const ModuleUser = {
             data: {
               user_id: access_obj.user_id,
             },
-            headers: {
+            headers: { //jwt验证
               Authorization: "Bearer " + access,
             },
             success(resp) {

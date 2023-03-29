@@ -10,13 +10,17 @@
         <div class="title">Sign</div>
         <form @submit.prevent="sign">
           <div class="input">
-            <input v-model="username" type="text" id="sign-user" placeholder="Have A Good Name?">
+            <input v-model="username" type="text" id="sign-user"
+              placeholder="Have A Good Name?">
           </div>
           <div class="input">
-            <input v-model="password" type="password" id="sign-password" placeholder="Keep Secret">
+            <input v-model="password" type="password" id="sign-password"
+              placeholder="Keep Secret">
           </div>
           <div class="input">
-            <input v-model="password_confirm" type="password" id="password_confirm" placeholder="Confirm Your Password">
+            <input v-model="password_confirm" type="password"
+              id="password_confirm" placeholder="Confirm Your Password">
+            <div class="error-message">{{ error_message }}</div>
           </div>
           <button type="submit" class="btn sign-btn">Sign up</button>
         </form>
@@ -29,31 +33,23 @@
     </div>
 
   </div>
-
-
 </template>
 
 <script>
-
 import { ref } from 'vue';
 import { useStore } from 'vuex';
 import router from '@/router';
 import $ from "jquery"
-
-
 export default {
-  name: 'LoginView',
+  name: 'RegisterView',
   components: {
-
   },
-
   setup() {
     const store = useStore();
     let username = ref('');
     let password = ref('');
     let error_message = ref('');
     let password_confirm = ref('');
-
     const sign = () => {
       error_message.value = "";
       $.ajax({
@@ -65,6 +61,7 @@ export default {
           password_confirm: password_confirm.value,
         },
         success(resp) {
+          console.log(resp);
           if (resp.result === "success") {
             store.dispatch("login", {
               username: username.value,
@@ -76,24 +73,18 @@ export default {
                 error_message.value = "System Error";
               }
             });
-          }
-
+          } else error_message.value = resp.result;
           //console.log(resp);
         }
-
       });
-
       // console.log(store);
       //console.log(username.value,password.value,password_confirm.value);
     };
-
     const GotoLogin = () => {
       router.push({
         name: "login",
       });
     }
-
-
     return {
       username,
       password,
@@ -103,11 +94,7 @@ export default {
       GotoLogin,
     }
   }
-
-
 }
-
-
 </script>
 
 
@@ -116,6 +103,14 @@ export default {
 * {
   padding: 0px;
   margin: 0px;
+}
+
+.error-message {
+  display: flex;
+  font-weight: 800;
+  color: red;
+  font-size: 1em;
+  justify-content: flex-start;
 }
 
 .homeBox {
@@ -148,7 +143,6 @@ export default {
   box-shadow: 0px 0px 10px rgba(17, 39, 59, 0.8);
   border: 1px solid rgba(17, 39, 59, 1);
   box-sizing: border-box;
-
 }
 
 .container:hover .title {
@@ -190,8 +184,6 @@ export default {
   transition: .4s;
 }
 
-
-
 .input {
   width: 400px;
   height: 45px;
@@ -214,7 +206,6 @@ input {
   border-radius: 45px;
   transition: .4s;
 }
-
 
 .btn {
   height: 50px;
@@ -259,12 +250,9 @@ input {
   color: rgba(255, 255, 255, 0.8);
 }
 
-
-
 .sign-change {
   background-color: rgba(17, 39, 59, 0.8);
 }
-
 
 .toLogin {
   color: white;
@@ -285,14 +273,12 @@ input {
   background-color: #1e90ff;
 }
 
-
 /* Mac 按钮样式及特效 */
 .apple-btn {
   position: absolute;
   height: 15px;
   width: 65px;
   top: 3px;
-
 }
 
 .apple-btn li {

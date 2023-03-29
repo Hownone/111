@@ -10,10 +10,12 @@
         <div class="title">Login</div>
         <form @submit.prevent="login">
           <div class="input">
-            <input v-model="username" type="text" id="login-user" placeholder="Input your username">
+            <input v-model="username" type="text" id="login-user"
+              placeholder="Input your username">
           </div>
           <div class="input">
-            <input v-model="password" type="password" id="login-password" placeholder="Input your password">
+            <input v-model="password" type="password" id="login-password"
+              placeholder="Input your password">
             <div class="error-message">{{ error_message }}</div>
           </div>
           <button type="submit" class="btn login-btn">Sign in</button>
@@ -27,8 +29,6 @@
     </div>
 
   </div>
-
-
 </template>
 
 <script>
@@ -67,10 +67,10 @@ export default {
       });
     };
 
-    const GotoRegister =() => {
-        router.push({
-          name: "register",
-        });
+    const GotoRegister = () => {
+      router.push({
+        name: "register",
+      });
     }
 
 

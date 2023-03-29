@@ -1,6 +1,7 @@
 <template>
   <ContentBase>
-    <div class="card" v-for="user in users" :key="user.id" @click="OpenUserProfile(user.id)">
+    <div class="card" v-for="user in users" :key="user.id"
+      @click="OpenUserProfile(user.id)">
       <div class="card-body">
         <div class="row">
           <div class="col-1">
@@ -80,9 +81,10 @@ img {
   float: left;
   height: 50%;
 }
+
 .username {
   font-weight: bold;
- 
+
 }
 
 .text {
@@ -93,7 +95,7 @@ img {
 .followers {
   font-size: 15px;
   color: rgb(180, 162, 170);
- 
+
 }
 
 .card {
@@ -103,6 +105,6 @@ img {
 
 .card:hover {
   box-shadow: 2px 2px 10px lightgrey;
-  transform: 500ms;
+  transition: 500ms;
 }
 </style>

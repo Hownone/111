@@ -2,12 +2,14 @@
     <ContentBase>
         <div class="row">
             <div class="col-3">
-                <UserProfileInfo @checkfollow="follow" @unfollow="unfollow" :user="info" />
+                <UserProfileInfo @checkfollow="follow" @unfollow="unfollow"
+                    :user="info" />
                 <UserProfileWrite v-if="isMe" @postApost="postApost" />
 
             </div>
             <div class="col-9">
-                <UserProfilePosts :user="info" :posts="posts" @deletepost="DeletePost" >
+                <UserProfilePosts :user="info" :posts="posts"
+                    @deletepost="DeletePost">
                 </UserProfilePosts>
             </div>
         </div>
@@ -40,13 +42,12 @@ export default {
         const store = useStore();
         const user = reactive({});
         const posts = reactive({});
-
+        //获取用户信息
         $.ajax({
             url: "https://app165.acapp.acwing.com.cn/myspace/getinfo/",
             type: "GET",
             data: {
                 user_id: userID,
-
             },
             headers: {
                 "Authorization": "Bearer " + store.state.user.access,
@@ -61,6 +62,7 @@ export default {
             }
         });
 
+        //获取用户帖子
         $.ajax({
             url: "https://app165.acapp.acwing.com.cn/myspace/post/",
             type: "GET",
@@ -72,39 +74,39 @@ export default {
             },
             success(resp) {
                 posts.count = resp.length;
-                console.log(resp);
+                //console.log(resp);
                 posts.posts = resp;
             }
         });
-       /* console.log(userID);
-        const user = reactive({
-            Username: "Hownone Ho",
-            LastName: "Ho",
-            FirstName: "Hownone",
-            Followers: 100,
-            is_followed: true,
-        });
-
-        const posts = reactive({
-            count: 3,
-            posts: [{
-                id: 1,
-                userID: 12345,
-                content: "rp ++"
-            },
-            {
-                id: 2,
-                userID: 12345,
-                content: "rating ++"
-            },
-            {
-                id: 3,
-                userID: 12345,
-                content: "grandmaster"
-            },
-            ]
-
-        });*/
+        /* console.log(userID);
+         const user = reactive({
+             Username: "Hownone Ho",
+             LastName: "Ho",
+             FirstName: "Hownone",
+             Followers: 100,
+             is_followed: true,
+         });
+ 
+         const posts = reactive({
+             count: 3,
+             posts: [{
+                 id: 1,
+                 userID: 12345,
+                 content: "rp ++"
+             },
+             {
+                 id: 2,
+                 userID: 12345,
+                 content: "rating ++"
+             },
+             {
+                 id: 3,
+                 userID: 12345,
+                 content: "grandmaster"
+             },
+             ]
+ 
+         });*/
 
         const follow = () => {
             if (user.is_followed) return;
@@ -119,7 +121,7 @@ export default {
             user.Followers--;
         }
 
-        const postApost = (content) => {
+        const postApost = content => {
             posts.count++;
             posts.posts.unshift({
                 id: posts.count,
@@ -130,8 +132,6 @@ export default {
         const DeletePost = postID => {
             posts.posts = posts.posts.filter(post => post.id !== postID);
             posts.count = posts.posts.length;
-
-
         }
 
         const isMe = computed(() => userID == store.state.user.id)
@@ -151,5 +151,4 @@ export default {
 }
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

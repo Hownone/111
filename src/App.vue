@@ -1,5 +1,5 @@
 <template>
-  <nav-bar></nav-bar>
+  <navBar></navBar>
   <router-view :key="$route.fullPath"></router-view>
 </template>
 

@@ -3,13 +3,13 @@
         <div class="card-body">
             <div class="mb-3">
                 <label for="EditPost" class="form-label">Write Your Post</label>
-                <textarea v-model="content" class="form-control" id="EditPost" rows="3"></textarea>
-                <button @click="postApost" type="button" class="btn btn-success">Send</button>
+                <textarea v-model="content" class="form-control" id="EditPost"
+                    rows="3"></textarea>
+                <button @click="postApost" type="button"
+                    class="btn btn-success">Send</button>
             </div>
-
         </div>
     </div>
-
 </template>
 
 <script>

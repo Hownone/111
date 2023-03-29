@@ -19,7 +19,6 @@
 
         </div>
     </div>
-
 </template>
 
 <script>
@@ -40,7 +39,7 @@ export default {
         //let FullName = computed(() => props.user.FirstName + ' ' + props.user.LastName);
         const store = useStore();
         const follow = () => {
-             $.ajax({
+            $.ajax({
                 url: "https://app165.acapp.acwing.com.cn/myspace/follow/",
                 type: "POST",
                 data: {
@@ -51,7 +50,7 @@ export default {
                 },
                 success(resp) {
                     if (resp.result === "success") {
-                        context.emit("checkfollow");
+                        context.emit("checkfollow"); //触发父组件函数以更新父组件里的值
                     }
                 }
             });
@@ -73,7 +72,7 @@ export default {
                     }
                 }
             });
-           
+
         };
 
         return {
